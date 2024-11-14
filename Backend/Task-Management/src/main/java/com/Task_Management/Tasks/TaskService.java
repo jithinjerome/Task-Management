@@ -1,5 +1,9 @@
 package com.Task_Management.Tasks;
 
+import com.Task_Management.Category.Category;
+import com.Task_Management.Category.CategoryRepository;
+import com.Task_Management.Status.Status;
+import com.Task_Management.Status.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +18,30 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private StatusRepository statusRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     public Task createTask(Task task) {
 
         if(task.getDescription() == null || task.getDescription().trim().isEmpty()){
             throw new IllegalArgumentException("Description is required");
         }
-        task.setStatus("Pending");
+        Optional<Status> statusOptional = statusRepository.findById(task.getStatusId());
+        if(!statusOptional.isPresent()){
+            throw new IllegalArgumentException("Invalid status Id: "+task.getStatusId());
+        }
+        Status status  = statusOptional.get();
+        Optional<Category> categoryOptional = categoryRepository.findById(task.getCategoryId());
+        if(!categoryOptional.isPresent()){
+            throw new IllegalArgumentException("Invalid category Id: "+task.getCategoryId());
+        }
+        Category category = categoryOptional.get();
+        task.setStatus(status.getName());
+        task.setCategory(category.getName());
         return taskRepository.save(task);
     }
 
