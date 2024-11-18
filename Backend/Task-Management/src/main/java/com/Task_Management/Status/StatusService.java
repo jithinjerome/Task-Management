@@ -9,8 +9,10 @@ import java.util.List;
 @Service
 public class StatusService {
 
-    @Autowired
     private StatusRepository statusRepository;
+    public StatusService(StatusRepository statusRepository){
+        this.statusRepository = statusRepository;
+    }
 
     public Status addStatus(Status status) {
         return statusRepository.save(status);

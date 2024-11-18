@@ -12,8 +12,10 @@ import java.util.List;
 @RequestMapping(path = "/api/category")
 public class CategoryController {
 
-    @Autowired
     private CategoryService categoryService;
+    public CategoryController(CategoryService categoryService){
+        this.categoryService = categoryService;
+    }
 
     @PostMapping(path = "/add")
     public Category addCategory(@RequestBody Category category){

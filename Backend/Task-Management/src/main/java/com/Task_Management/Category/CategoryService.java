@@ -15,14 +15,17 @@ import java.util.Optional;
 @Service
 public class CategoryService {
 
-    @Autowired
     private CategoryRepository categoryRepository;
-
-    @Autowired
     private StatusRepository statusRepository;
-
-    @Autowired
     private TaskRepository taskRepository;
+
+    public CategoryService(CategoryRepository categoryRepository,
+                           StatusRepository statusRepository,
+                           TaskRepository taskRepository){
+        this.categoryRepository = categoryRepository;
+        this.statusRepository = statusRepository;
+        this.taskRepository = taskRepository;
+    }
 
     public Category addCategory(Category category) {
         if (categoryRepository.findByName(category.getName()).isPresent()) {

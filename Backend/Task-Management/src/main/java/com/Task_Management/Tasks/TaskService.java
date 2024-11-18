@@ -2,6 +2,7 @@ package com.Task_Management.Tasks;
 
 import com.Task_Management.Category.Category;
 import com.Task_Management.Category.CategoryRepository;
+import com.Task_Management.Category.CategoryService;
 import com.Task_Management.Status.Status;
 import com.Task_Management.Status.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,17 @@ import java.util.Optional;
 @Service
 public class TaskService {
 
-    @Autowired
     private TaskRepository taskRepository;
-
-    @Autowired
     private StatusRepository statusRepository;
-
-    @Autowired
     private CategoryRepository categoryRepository;
+
+    public TaskService(TaskRepository taskRepository,
+                       StatusRepository statusRepository,
+                       CategoryService categoryService){
+        this.taskRepository = taskRepository;
+        this.statusRepository = statusRepository;
+    }
+
 
 
     public Task createTask(Task task) {

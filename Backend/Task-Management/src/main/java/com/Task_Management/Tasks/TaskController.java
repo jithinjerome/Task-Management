@@ -10,8 +10,10 @@ import java.util.List;
 @RequestMapping(path = "/api/task")
 public class TaskController {
 
-    @Autowired
     private TaskService taskService;
+    public TaskController(TaskService taskService){
+        this.taskService = taskService;
+    }
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<Task>> getAllTask(){

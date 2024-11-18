@@ -9,8 +9,11 @@ import java.util.List;
 @RequestMapping(path = "/api/status")
 public class StatusController {
 
-    @Autowired
+
     private StatusService statusService;
+    public StatusController(StatusService statusService){
+        this.statusService = statusService;
+    }
 
     @GetMapping(path = "/all")
     public List<Status> getAllStatus(){
