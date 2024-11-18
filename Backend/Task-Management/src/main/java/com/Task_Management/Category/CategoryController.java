@@ -24,22 +24,22 @@ public class CategoryController {
         return categoryService.allCategory();
     }
 
-    @DeleteMapping(path = "/id")
+    @DeleteMapping(path = "/{id}")
     public void deleteCategory(@PathVariable long id){
         categoryService.deleteCategory(id);
     }
 
-    @PutMapping(path = "/update/id")
+    @PutMapping(path = "/update/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable long id, @RequestBody Category category){
         return categoryService.updateCategory(id,category);
     }
 
-    @GetMapping(path = "/categories/id")
+    @GetMapping(path = "/categories/{id}")
     public ResponseEntity<?> getById(@PathVariable long id){
         return categoryService.getById(id);
     }
 
-    @GetMapping(path = "/category/status/categpryId/statusId")
+    @GetMapping(path = "/category/status/{categoryId}/{statusId}")
     public ResponseEntity<?> getByCategoryandStatus(@PathVariable long categoryId, @PathVariable long statusId){
         return categoryService.getByCategoryandStatus(categoryId,statusId);
     }

@@ -17,13 +17,13 @@ public class TaskController {
         return taskService.createTask(task);
     }
 
-    @PutMapping(path = "/update/id")
-    public ResponseEntity<?> updateTask(@PathVariable long id,Task task){
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<?> updateTask(@PathVariable long id,@RequestBody Task task){
         return taskService.updateTask(id,task);
     }
 
 
-    @DeleteMapping(path = "/id")
+    @DeleteMapping(path = "/{id}")
     public void deleteTask(@PathVariable long id){
         taskService.deleteTask(id);
     }

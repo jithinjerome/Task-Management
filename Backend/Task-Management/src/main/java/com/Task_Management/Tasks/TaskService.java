@@ -53,10 +53,17 @@ public class TaskService {
         Optional<Task> taskOptional = taskRepository.findById(id);
         if(taskOptional.isPresent()){
             Task updated = taskOptional.get();
-            updated.setStatus(task.getStatus());
-            updated.setUpdateDate(LocalDateTime.now());
-            taskRepository.save(updated);
-            return new ResponseEntity<>(updated,HttpStatus.OK);
+            Optional<Status> statusOptional = statusRepository.findById(task.getStatusId());
+            if(statusOptional.isPresent()){
+                Status status = statusOptional.get();
+                updated.setStatusId(status.getId());
+                updated.setStatus(status.getName());
+                updated.setUpdateDate(LocalDateTime.now());
+                taskRepository.save(updated);
+                return new ResponseEntity<>(updated,HttpStatus.OK);
+            }
+            return new ResponseEntity<>("Invalid Status",HttpStatus.NOT_FOUND);
+
         }
         else {
             return new ResponseEntity<>("Task not found",HttpStatus.NOT_FOUND);

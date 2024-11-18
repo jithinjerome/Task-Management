@@ -10,5 +10,5 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task,Long> {
 
 
-    List<Task> findByCategoryAndStatus(Category category, Status status);
+    List<Task> findByCategoryIdAndStatusId(long categoryId, long statusId);
 }

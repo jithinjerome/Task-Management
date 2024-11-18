@@ -63,9 +63,7 @@ public class CategoryService {
         Optional<Status> statusOptional = statusRepository.findById(statusId);
 
         if(categoryOptional.isPresent() && statusOptional.isPresent()){
-            Category category = categoryOptional.get();
-            Status status = statusOptional.get();
-            List<Task> tasks = taskRepository.findByCategoryAndStatus(category,status);
+            List<Task> tasks = taskRepository.findByCategoryIdAndStatusId(categoryId,statusId);
             return new ResponseEntity<>(tasks,HttpStatus.OK);
         }
         return new ResponseEntity<>("Category or Status not found !",HttpStatus.NOT_FOUND);
