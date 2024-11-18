@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,5 +70,16 @@ public class TaskService {
         else {
             return new ResponseEntity<>("Task not found",HttpStatus.NOT_FOUND);
         }
+    }
+
+    public ResponseEntity<List<Task>> getAllTasks() {
+        List<Task> task = taskRepository.findAll();
+
+        task.sort(Comparator.comparingLong(Task::getId));
+
+        if(task.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(task,HttpStatus.OK);
     }
 }

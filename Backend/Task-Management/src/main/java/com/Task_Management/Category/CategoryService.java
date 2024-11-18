@@ -50,12 +50,14 @@ public class CategoryService {
         return new ResponseEntity<>("Category not found with ID: "+category.getId(),HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<?> getById(long id) {
+    public ResponseEntity<List<Task>> getById(long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if(categoryOptional.isPresent()){
-            return new ResponseEntity<>(categoryOptional.get(),HttpStatus.OK);
+            List<Task> task = taskRepository.findByCategoryId(id);
+
+            return new ResponseEntity<>(task,HttpStatus.OK);
         }
-        return new ResponseEntity<>("Category not found with ID: "+categoryOptional.get().getId(),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     public ResponseEntity<?> getByCategoryandStatus(long categoryId, long statusId) {

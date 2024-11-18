@@ -4,12 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/task")
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
+
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Task>> getAllTask(){
+        return taskService.getAllTasks();
+    }
 
     @PostMapping(path = "/create")
     public Task createTask(@RequestBody Task task){

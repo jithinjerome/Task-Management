@@ -1,6 +1,7 @@
 package com.Task_Management.Category;
 
 
+import com.Task_Management.Tasks.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class CategoryController {
     }
 
     @GetMapping(path = "/categories/{id}")
-    public ResponseEntity<?> getById(@PathVariable long id){
+    public ResponseEntity<List<Task>> getById(@PathVariable long id){
         return categoryService.getById(id);
     }
 
